@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod_demo/number_change_notifier.dart';
+import 'package:flutter_riverpod_demo/screen/number_screen.dart';
 
 void main() {
   runApp(
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
        
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const NumberScreen(),
     );
   }
 }
@@ -42,8 +43,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     debugPrint('---Rebuild----');
-    final state = ref.watch(numberChangeNotifierProvider);
-   
+       
     return Scaffold(
       appBar: AppBar(        
         title: Text(widget.title),
@@ -55,9 +55,16 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '${state.generatedNumber}',
-              style: Theme.of(context).textTheme.headline4,
+            Consumer(             
+              builder: (context, ref, child) {
+                 debugPrint('---Consumer Rebuild----');
+                final state = ref.watch(numberChangeNotifierProvider);
+
+                return Text(
+                  '${state.generatedNumber}',
+                  style: Theme.of(context).textTheme.headline4,
+                );
+              }
             ),
           ],
         ),
