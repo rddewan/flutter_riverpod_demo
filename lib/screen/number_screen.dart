@@ -14,7 +14,15 @@ class _NumberScreenState extends ConsumerState<NumberScreen> {
   int _generatedNumber = 0;
 
   @override
+  void initState() {    
+    super.initState();
+    
+  }
+
+  @override
   Widget build(BuildContext context) {
+    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Number'),
@@ -26,6 +34,7 @@ class _NumberScreenState extends ConsumerState<NumberScreen> {
             const Text(
               'You have pushed the button this many times:',
             ),
+
             Consumer(             
               builder: (context, ref, child) {
                  debugPrint('---Consumer Rebuild----');

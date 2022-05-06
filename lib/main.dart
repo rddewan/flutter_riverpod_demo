@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod_demo/number_change_notifier.dart';
 import 'package:flutter_riverpod_demo/screen/number_screen.dart';
+import 'package:flutter_riverpod_demo/screen/user_screen.dart';
 
 void main() {
   runApp(
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
        
         primarySwatch: Colors.blue,
       ),
-      home: const NumberScreen(),
+      home: const UserScreen(),
     );
   }
 }
