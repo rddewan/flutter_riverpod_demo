@@ -19,4 +19,9 @@ class UserRepositoryImpl extends UserRepository {
     return 'Richard';
   }
 
+  @override
+  String getPhone() {
+    return '015454545';
+  }
+
 }

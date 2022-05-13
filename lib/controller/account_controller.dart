@@ -1,23 +1,24 @@
 
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod_demo/service/user_service.dart';
 import 'package:flutter_riverpod_demo/service/user_service_impl.dart';
 import 'package:flutter_riverpod_demo/state/user_state.dart';
 
-final userControllerProvider = StateNotifierProvider<UserController,UserState>((ref) {
+final accountControllerProvider = StateNotifierProvider.autoDispose<AccountController,UserState>((ref) {
   final service = ref.watch(userServiceProvider);
 
-  return UserController(UserState(name: '', address: '', phone: const AsyncValue.loading()),  service);
+  return AccountController(UserState(name: '', address: '', phone: const AsyncValue.loading()),  service);
 
 });
 
 
-class UserController extends StateNotifier<UserState> {
+class AccountController extends StateNotifier<UserState> {
   final UserService service;
 
-  UserController(UserState state, this.service) : super(state);
+  AccountController(UserState state, this.service) : super(state);
 
   void getUserName(){
     final user = service.getUserName();

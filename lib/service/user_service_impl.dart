@@ -29,6 +29,11 @@ class UserServiceImpl extends UserService{
     
   }
 
+  @override
+  String getPhone() {
+     return repository.getPhone();
+  }
+
   
   
 }

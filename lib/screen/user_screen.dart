@@ -1,10 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod_demo/controller/account_controller.dart';
 import 'package:flutter_riverpod_demo/controller/number_controller.dart';
 import 'package:flutter_riverpod_demo/controller/user_controller.dart';
 import 'package:flutter_riverpod_demo/screen/account_screen.dart';
 import 'package:flutter_riverpod_demo/screen/number_screen.dart';
+import 'package:flutter_riverpod_demo/state/user_state.dart';
 
 class UserScreen extends ConsumerStatefulWidget {
   const UserScreen({Key? key}) : super(key: key);
@@ -19,9 +21,16 @@ class _UserScreenState extends ConsumerState<UserScreen> {
   @override
   void initState() {    
     super.initState();
+    ref.listen<UserState>(userControllerProvider, (previous, next) { 
+      if(next.name.isNotEmpty) {
+        
+      }
+
+    }) ;
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) { 
       ref.read(userControllerProvider.notifier).getUserName();
       ref.read(userControllerProvider.notifier).getAddress();
+      ref.read(userControllerProvider.notifier).getUserPhone();
 
     });
     
@@ -30,6 +39,12 @@ class _UserScreenState extends ConsumerState<UserScreen> {
   @override
   Widget build(BuildContext context) {  
     debugPrint('BuildContext'); 
+    ref.listen<UserState>(userControllerProvider, (previous, next) { 
+      if(next.name.isNotEmpty) {
+        
+      }
+
+    }) ;
     
 
     return Scaffold(
@@ -49,6 +64,23 @@ class _UserScreenState extends ConsumerState<UserScreen> {
                 return Text('Address: $address');
               }
             ),
+            Consumer(
+              builder: (context,ref,child) {
+                debugPrint('Consumer');
+                final phone = ref.watch(userControllerProvider.select((value) => value.phone)); 
+                return phone.when(
+                  data: (data) {
+                    return Text('Address: $data');
+                  },
+                  error: (e,s) {
+                    return Text('Error: ${e.toString()}');
+                  },
+                  loading: () {
+                    return const CircularProgressIndicator();
+                  }
+                );                
+              }
+            ),
 
             
             
@@ -60,7 +92,8 @@ class _UserScreenState extends ConsumerState<UserScreen> {
         children: [           
           FloatingActionButton(
             onPressed:  () {
-              ref.refresh(userControllerProvider);
+              ref.refresh(userControllerProvider); 
+                          
               Navigator.push(context, MaterialPageRoute(builder: ((context) => const AccountScreen())));
             },
             tooltip: 'Increment',

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 @immutable
-class UserState {
+class AccountState {
   final String name;
   final String address;
   final AsyncValue<String> phone;
 
-  UserState({
+  AccountState({
     required this.name,
     required this.address,
     required this.phone,
@@ -20,7 +20,7 @@ class UserState {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
   
-    return other is UserState &&
+    return other is AccountState &&
       other.name == name &&
       other.address == address;
   }
@@ -29,14 +29,14 @@ class UserState {
   int get hashCode => name.hashCode ^ address.hashCode;
 
   @override
-  String toString() => 'UserState(name: $name, address: $address)';
+  String toString() => 'AccountState(name: $name, address: $address)';
 
-  UserState copyWith({
+  AccountState copyWith({
     String? name,
     String? address,
    final AsyncValue<String>? phone,
   }) {
-    return UserState(
+    return AccountState(
       name: name ?? this.name,
       address: address ?? this.address,
       phone: phone ?? this.phone,
